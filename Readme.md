@@ -37,43 +37,29 @@ Copri runs on:
 
 All platforms receive the same minimal and efficient experience.
 
+
+## 🧠 How It Works (Architecture Overview)
+Copri consists of three major components working together:
+
+1. Clipboard Watcher (Background Thread)
+Polls clipboard at a safe interval
+Detects new text
+Stores up to 10 most recent entries
+Saves to persistent storage
+
+2. Global Hotkey Listener (Background Thread)
+Listens for keyboard events globally
+On hotkey press, instructs UI to toggle the popup
+Ensures all UI actions are dispatched safely to the Tkinter main thread
+
+3. Tkinter UI + Tray (Main Thread)
+The main Tkinter thread runs the UI event loop
+All UI updates are performed on the main thread
+The tray icon is also initialized in the main thread (critical for macOS stability)
+Thread safety is achieved using root.after(), ensuring Tkinter never receives a direct cross-thread call.
+
+If you found this useful, please ⭐ the repository!
 ---
-
-## 🛠️ Installation
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/<your-username>/Copri.git
-cd Copri
-2. Install dependencies
-Copri uses Python 3.10+.
-
-bash
-Copy code
-pip3 install -r requirements.txt
-3. Run the application
-bash
-Copy code
-python3 main.py
-🔧 System Requirements
-Python 3.10 or newer
-
-Tkinter (bundled with Python on macOS & Windows)
-
-Accessibility permission on macOS for global keyboard listening
-
-Pillow and other libraries installed through requirements.txt
-
-### 🔐 macOS Setup Notes
-Global Hotkeys Require Permission
-On macOS, the hotkey listener requires Accessibility permissions. 
-Go to:
-System Settings → Privacy & Security → Accessibility
-Add Terminal, iTerm, or your IDE (VSCode, PyCharm, etc.)
-Enable permission
-Without this step, hotkeys will not work.
-Tray Icon on macOS
-macOS requires GUI elements—like tray icons and windows—to be created only on the main thread. Copri is implemented to follow these requirements and avoid crashes.
 
 ## 📁 Project Structure
 bash
@@ -87,8 +73,7 @@ Copri/
 ├── storage.py             # JSON-based storage for history and favorites
 ├── tray.py                # Tray icon and menu integration
 ├── requirements.txt       # Project dependencies
-└── assets/
-    └── icon.png
+
 ## 🚀 Usage Guide
 Start the application
 bash
@@ -110,32 +95,13 @@ Open the popup
 
 Quit the application
 
-## 🧠 How It Works (Architecture Overview)
-Copri consists of three major components working together:
-
-1. Clipboard Watcher (Background Thread)
-Polls clipboard at a safe interval
-
-Detects new text
-
-Stores up to 10 most recent entries
-
-Saves to persistent storage
-
-2. Global Hotkey Listener (Background Thread)
-Listens for keyboard events globally
-
-On hotkey press, instructs UI to toggle the popup
-
-Ensures all UI actions are dispatched safely to the Tkinter main thread
-
-3. Tkinter UI + Tray (Main Thread)
-The main Tkinter thread runs the UI event loop
-
-All UI updates are performed on the main thread
-
-The tray icon is also initialized in the main thread (critical for macOS stability)
-
-Thread safety is achieved using root.after(), ensuring Tkinter never receives a direct cross-thread call.
-
-If you found this useful, please ⭐ the repository!
+### 🔐 macOS Setup Notes
+Global Hotkeys Require Permission
+On macOS, the hotkey listener requires Accessibility permissions. 
+Go to:
+System Settings → Privacy & Security → Accessibility
+Add Terminal, iTerm, or your IDE (VSCode, PyCharm, etc.)
+Enable permission
+Without this step, hotkeys will not work.
+Tray Icon on macOS
+macOS requires GUI elements—like tray icons and windows—to be created only on the main thread. Copri is implemented to follow these requirements and avoid crashes.
