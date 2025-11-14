@@ -64,22 +64,18 @@ Accessibility permission on macOS for global keyboard listening
 
 Pillow and other libraries installed through requirements.txt
 
-🔐 macOS Setup Notes
+### 🔐 macOS Setup Notes
 Global Hotkeys Require Permission
-On macOS, the hotkey listener requires Accessibility permissions. Go to:
-
+On macOS, the hotkey listener requires Accessibility permissions. 
+Go to:
 System Settings → Privacy & Security → Accessibility
-
 Add Terminal, iTerm, or your IDE (VSCode, PyCharm, etc.)
-
 Enable permission
-
 Without this step, hotkeys will not work.
-
 Tray Icon on macOS
 macOS requires GUI elements—like tray icons and windows—to be created only on the main thread. Copri is implemented to follow these requirements and avoid crashes.
 
-📁 Project Structure
+## 📁 Project Structure
 bash
 Copy code
 Copri/
@@ -93,7 +89,7 @@ Copri/
 ├── requirements.txt       # Project dependencies
 └── assets/
     └── icon.png
-🚀 Usage Guide
+## 🚀 Usage Guide
 Start the application
 bash
 Copy code
@@ -114,7 +110,7 @@ Open the popup
 
 Quit the application
 
-🧠 How It Works (Architecture Overview)
+## 🧠 How It Works (Architecture Overview)
 Copri consists of three major components working together:
 
 1. Clipboard Watcher (Background Thread)
@@ -141,94 +137,5 @@ All UI updates are performed on the main thread
 The tray icon is also initialized in the main thread (critical for macOS stability)
 
 Thread safety is achieved using root.after(), ensuring Tkinter never receives a direct cross-thread call.
-
-🔮 Roadmap
-v0.2 (Upcoming)
-Customizable hotkey from settings
-
-Search bar inside Recent & Favorites
-
-Dark mode optimized UI
-
-Auto-start on login
-
-UI redesign with rounded edges and cleaner layout
-
-v0.3
-Snippet folders / categories
-
-Export and import snippet collections
-
-Encrypted sync via GitHub Gist
-
-v1.0 Stable Release
-Full SwiftUI macOS native version
-
-Full settings page
-
-Plugin system for code expansions
-
-Image clipboard support
-
-🤝 Contributing
-We welcome contributions from the community!
-
-Contribution Steps
-Fork the repository
-
-Create a branch
-
-bash
-Copy code
-git checkout -b feature-name
-Make your changes
-
-Commit with clear messages
-
-Push and create a pull request
-
-Guidelines
-Maintain Python readability and PEP-8 compliance
-
-Ensure UI changes remain thread-safe
-
-Test functionality on macOS (preferred primary environment)
-
-Avoid heavy dependencies — keep app lightweight
-
-🧪 Development Commands
-Install dependencies
-bash
-Copy code
-pip3 install -r requirements.txt
-Run the project
-bash
-Copy code
-python3 main.py
-Build standalone macOS app
-bash
-Copy code
-pyinstaller --onefile --windowed main.py
-Packaging scripts for macOS DMG and Linux AppImage are coming soon.
-
-📄 License
-Copri is released under the MIT License, giving you full freedom to:
-
-Use
-
-Modify
-
-Distribute
-
-Integrate
-
-Sell
-
-as long as the original license is included.
-
-👨‍💻 Author
-Srinivas Shanti
-Developer | Engineer | Builder
-Focused on creating practical, efficient tools that improve everyday workflows.
 
 If you found this useful, please ⭐ the repository!
