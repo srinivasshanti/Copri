@@ -1,6 +1,5 @@
 # 📋 Copri  
-ClipboadKeeper is a lightweight, fast, and cross-platform clipboard manager designed for developers and productivity-focused users. It runs silently in the background, tracks the latest clipboard entries, allows users to save custom snippets, and opens instantly using a global hotkey.
-
+Copri is a lightweight, fast, and cross-platform clipboard manager designed for developers and productivity-focused users. It runs silently in the background, tracks the latest clipboard entries, allows users to save custom snippets, and opens instantly using a global hotkey.
 Built with Python using Tkinter, pystray, and pynput, Copri offers a minimal and clean UI with essential functionality baked in, making it a perfect small utility tool for your workflow.
 
 ---
@@ -36,72 +35,53 @@ Copri runs on:
 - **Linux**
 
 All platforms receive the same minimal and efficient experience.
-
+---
 
 ## 🧠 How It Works (Architecture Overview)
 Copri consists of three major components working together:
 
 1. Clipboard Watcher (Background Thread)
-Polls clipboard at a safe interval
-Detects new text
-Stores up to 10 most recent entries
-Saves to persistent storage
+- Polls clipboard at a safe interval
+- Detects new text
+- Stores up to 10 most recent entries
+- Saves to persistent storage
 
 2. Global Hotkey Listener (Background Thread)
-Listens for keyboard events globally
-On hotkey press, instructs UI to toggle the popup
-Ensures all UI actions are dispatched safely to the Tkinter main thread
+- Listens for keyboard events globally
+- On hotkey press, instructs UI to toggle the popup
+- Ensures all UI actions are dispatched safely to the Tkinter main thread
 
 3. Tkinter UI + Tray (Main Thread)
-The main Tkinter thread runs the UI event loop
-All UI updates are performed on the main thread
-The tray icon is also initialized in the main thread (critical for macOS stability)
-Thread safety is achieved using root.after(), ensuring Tkinter never receives a direct cross-thread call.
-
-If you found this useful, please ⭐ the repository!
+- The main Tkinter thread runs the UI event loop
+- All UI updates are performed on the main thread
+- The tray icon is also initialized in the main thread (critical for macOS stability)
+- Thread safety is achieved using root.after(), ensuring Tkinter never receives a direct cross-thread call.
 ---
-
-## 📁 Project Structure
-bash
-Copy code
-Copri/
-│
-├── main.py                # Application entry point
-├── clipboard_watcher.py   # Monitors system clipboard in a background thread
-├── hotkey.py              # Global hotkey handling
-├── ui.py                  # Tkinter UI for popup window (Recent/Favorites)
-├── storage.py             # JSON-based storage for history and favorites
-├── tray.py                # Tray icon and menu integration
-├── requirements.txt       # Project dependencies
 
 ## 🚀 Usage Guide
 Start the application
-bash
-Copy code
-python3 main.py
+- python3 main.py
 Using the popup
-Press ⌘ + Shift + V to toggle the popup window. The popup shows:
-
-Recent Clipboard Items
-View and copy recent entries.
-
-Favorite Snippets
-View, copy, or delete saved snippets.
-
-Clicking Copy automatically copies the text to your clipboard and closes the popup.
-
+- Press ⌘ + Shift + V to toggle the popup window. 
+The popup shows:
+- Recent Clipboard Items
+- View and copy recent entries.
+- Favorite Snippets
+- View, copy, or delete saved snippets.
+- Clicking Copy automatically copies the text to your clipboard and closes the popup.
 From the tray icon:
-Open the popup
-
-Quit the application
+- Open the popup
+- Quit the application
+---
 
 ### 🔐 macOS Setup Notes
 Global Hotkeys Require Permission
 On macOS, the hotkey listener requires Accessibility permissions. 
 Go to:
-System Settings → Privacy & Security → Accessibility
-Add Terminal, iTerm, or your IDE (VSCode, PyCharm, etc.)
-Enable permission
-Without this step, hotkeys will not work.
-Tray Icon on macOS
-macOS requires GUI elements—like tray icons and windows—to be created only on the main thread. Copri is implemented to follow these requirements and avoid crashes.
+- System Settings → Privacy & Security → Accessibility
+- Add Terminal, iTerm, or your IDE (VSCode, PyCharm, etc.)
+- Enable permission
+- Without this step, hotkeys will not work.
+- Tray Icon on macOS
+- macOS requires GUI elements—like tray icons and windows—to be created only on the main thread. Copri is implemented to follow these requirements and avoid crashes.
+---
